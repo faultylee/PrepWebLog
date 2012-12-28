@@ -44,15 +44,7 @@ GO
 
 /*
 sp_spaceused IISLogs
-	ALTER TABLE dbo.IISLogs ADD RequestDateTime DateTime
-	UPDATE dbo.IISLogs SET RequestDateTime = RequestDate + RequestTime WHERE RequestDateTime Is Null
-
-	CREATE CLUSTERED INDEX idx_IISLogs_Clstd_DateTime ON dbo.IISLogs(RequestDateTime) WITH (FILLFACTOR=90)
-
 	CREATE INDEX idx_IISLogs_sIP ON dbo.IISLogs(sIP) INCLUDE (csUriStem) WITH (FILLFACTOR=90)
 	CREATE INDEX idx_IISLogs_RequestDate ON dbo.IISLogs(RequestDate) WITH (FILLFACTOR=90)
-
---CREATE CLUSTERED INDEX idx_IISLogs_Clstd_DateTime ON dbo.IISLogs(RequestDateTime) WITH (FILLFACTOR=90)
---DROP INDEX IISLogs.idx_IISLogs_Clstd_DateTime
 
 */
