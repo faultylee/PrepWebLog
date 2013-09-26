@@ -13,6 +13,22 @@
 	GROUP BY csUriStem
 	ORDER BY Count(csUriStem) DESC
 
+-- Get longest to retrieve requests
+SELECT TOP 1000 * FROM IISLogs ORDER BY timeTaken DESC
+
+-- Get Average time taken
+DECLARE @Pattern VARCHAR(MAX)
+SELECT @Pattern = Replace('%00000000-0000-0000-0000-000000000000%','0','[0-9a-f]')
+SELECT CASE WHEN PatIndex(@Pattern, csUriStem) > 0 THEN SubString(csUriStem, 0, PatIndex(@Pattern, csUriStem)) ELSE csUriStem END As csUriStem, 
+	Sum(timeTaken) SumTimeTaken, Count(csUriStem) Hits, Sum(timeTaken) / Count(csUriStem) AvgTimeTaken
+FROM IISLogs
+--WHERE csUriStem Like '%contentengineapi%'
+GROUP BY CASE WHEN PatIndex(@Pattern, csUriStem) > 0 THEN SubString(csUriStem, 0, PatIndex(@Pattern, csUriStem)) ELSE csUriStem END
+HAVING Count(csUriStem) > 100
+ORDER BY Sum(timeTaken) DESC
+--ORDER BY Sum(timeTaken) / Count(csUriStem) DESC
+--ORDER BY Count(csUriStem) DESC
+
 -- Get page hits per server based on IP
 -- Looks pretty evenly spread
 	SELECT sIP, Count(sIP) HitCounter

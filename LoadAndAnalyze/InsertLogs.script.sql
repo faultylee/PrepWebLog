@@ -16,7 +16,7 @@ GO
 -- SET backup file location
 -- All paths are relative to SQL Server running under the Service Account
 DECLARE @LogFileLocation VarChar(520), @PrepWebLogPath VarChar(500)
-SET @LogFileLocation = 'C:\Temp\LogFiles20121105\'
+SET @LogFileLocation = 'C:\Temp\LogFiles20130925\'
 SET @PrepWebLogPath = 'C:\Temp\PrepWebLog.exe'
 
 BEGIN
